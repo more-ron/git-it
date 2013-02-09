@@ -1,0 +1,6 @@
+= git-it
+
+Describe your project here
+
+:include:git-it.rdoc
+
