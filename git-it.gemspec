@@ -11,6 +11,8 @@ spec = Gem::Specification.new do |s|
 # Add your other files here if you make them
   s.files = %w(
 bin/git-it
+lib/git-it/controller.rb
+lib/git-it/global_helper.rb
 lib/git-it/version.rb
 lib/git-it.rb
   )
