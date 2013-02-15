@@ -1,11 +1,14 @@
 require 'rugged'
 # require 'debugger'
 
+# Grand central station for git it commands
 class GitIt::Controller
 
   attr_reader :repository
   attr_reader :git_object
 
+  # Options::
+  # * --sha=sha1 - git object reference to work on
   def initialize(options)
     @repository = Rugged::Repository.new( discover_repository )
     @git_object = get_object(options[:sha])
@@ -15,9 +18,8 @@ class GitIt::Controller
   # = Actions =
   # ===========
 
-  # git it opened_in_browser
-
-  def open_in_browser(args, options)
+  # Command:: git it opened_in_the_web
+  def open_in_the_web(args, options)
     remote_origin_url = repository.config["remote.origin.url"]
     # => git@github.com:more-ron/git-it.git
 
@@ -30,7 +32,7 @@ class GitIt::Controller
     github_link = github_link.gsub(".git", "/tree/#{ branch_name }")
     # => https://github.com/more-ron/git-it/tree/master
 
-    `open #{ github_link }`
+    `open #{ github_link }` # should use launchy in the future
   end
 
   # ============

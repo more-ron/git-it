@@ -3,11 +3,11 @@ require File.join([File.dirname(__FILE__),'lib','git-it','version.rb'])
 spec = Gem::Specification.new do |s| 
   s.name = 'git-it'
   s.version = GitIt::VERSION
-  s.author = 'Your Name Here'
-  s.email = 'your@email.address.com'
-  s.homepage = 'http://your.website.com'
+  s.author = 'MoreRon'
+  s.email = 'more.ron.too@gmail.com'
+  s.homepage = 'http://more-ron.github.com/git-it/'
   s.platform = Gem::Platform::RUBY
-  s.summary = 'A description of your project'
+  s.summary = 'Commands to help you git it.'
 # Add your other files here if you make them
   s.files = %w(
 bin/git-it
@@ -24,4 +24,5 @@ lib/git-it.rb
   s.add_development_dependency('rdoc')
   s.add_development_dependency('aruba')
   s.add_runtime_dependency('gli','2.5.4')
+  s.add_runtime_dependency('rugged', '0.17.0.b8')
 end

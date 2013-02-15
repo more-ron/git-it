@@ -1,6 +1,20 @@
-= git-it
+= git-it! get it?
 
-Describe your project here
+Commands to help you git it.
+
+Author::    Ronald Maravilla  (mailto:more.ron.too@gmail.com)
+License::   Undecided
+
+== Install
+
+    gem install git-it
+
+== Use
+
+    git it opened_in_the_web
+
+== Documentation
+
+API Documentation is available {here}[http://more-ron.github.com/git-it/index.html].  Recommend starting with GitIt::Controller.
 
 :include:git-it.rdoc
-

@@ -4,6 +4,7 @@ require 'gli'
 require 'git-it'
 
 include GLI::App
+extend GitIt::GlobalHelper
 
 program_desc 'Git it! Get it?'
 
@@ -29,14 +30,14 @@ flag [:s,:sha]
 
 desc 'Opens current branch in web browser.'
 
-command :opened_in_browser do |c|
+command :opened_in_the_web do |c|
 
   c.desc 'Site: auto | github'
   c.default_value 'auto'
   c.flag :site
 
   c.action do |global_options,options,args|
-    GitIt::Controller.new(global_options).open_in_browser(args, options)
+    GitIt::Controller.new(global_options).open_in_the_web(args, options)
   end
 end
 
@@ -66,15 +67,5 @@ on_error do |exception|
   # return false to skip default error handling
   true
 end
-
-# =========================
-# = Global helper methods =
-# =========================
-
-def i_dont_git_it
-  raise "I don't git-it. That command made no sense."
-end
-
-
 
 exit run(ARGV)
