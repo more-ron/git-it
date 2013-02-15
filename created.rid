@@ -1,7 +1,7 @@
-Fri, 15 Feb 2013 23:21:51 +0800
-README.rdoc	Fri, 15 Feb 2013 22:57:19 +0800
+Fri, 15 Feb 2013 23:42:14 +0800
+README.rdoc	Fri, 15 Feb 2013 23:39:51 +0800
 lib/git-it.rb	Fri, 15 Feb 2013 23:08:48 +0800
-lib/git-it/controller.rb	Fri, 15 Feb 2013 22:58:49 +0800
+lib/git-it/controller.rb	Fri, 15 Feb 2013 23:22:53 +0800
 lib/git-it/global_helper.rb	Fri, 15 Feb 2013 22:48:04 +0800
-lib/git-it/version.rb	Fri, 15 Feb 2013 23:19:27 +0800
+lib/git-it/version.rb	Fri, 15 Feb 2013 23:36:37 +0800
 bin/git-it	Fri, 15 Feb 2013 23:09:04 +0800
