@@ -4,7 +4,7 @@
 <head>
 <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
 
-<title>class GitIt::Controller - Your application title</title>
+<title>class GitIt::Controller - Git it! Get it?</title>
 
 <link type="text/css" media="screen" href="../rdoc.css" rel="stylesheet">
 
@@ -72,7 +72,7 @@
     
     <li><a href="#method-c-new">::new</a>
     
-    <li><a href="#method-i-open_in_browser">#open_in_browser</a>
+    <li><a href="#method-i-open_in_the_web">#open_in_the_web</a>
     
   </ul>
 </nav>
@@ -99,6 +99,8 @@
   
     <li><a href="../GitIt/Controller.html">GitIt::Controller</a>
   
+    <li><a href="../GitIt/GlobalHelper.html">GitIt::GlobalHelper</a>
+  
     <li><a href="../Object.html">Object</a>
   
   </ul>
@@ -112,7 +114,7 @@
 
   <div id="description" class="description">
     
-<p>require ‘debugger’</p>
+<p>Grand central station for git it commands</p>
 
   </div><!-- description -->
 
@@ -178,12 +180,16 @@
 
         <div class="method-description">
           
-          
+          <dl class="rdoc-list note-list"><dt>Options
+<dd></dd></dl>
+<ul><li>
+<p>–sha=sha1 - git object reference to work on</p>
+</li></ul>
           
 
           
           <div class="method-source-code" id="new-source">
-            <pre><span class="ruby-comment"># File lib/git-it/controller.rb, line 9</span>
+            <pre><span class="ruby-comment"># File lib/git-it/controller.rb, line 12</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">options</span>)
   <span class="ruby-ivar">@repository</span> = <span class="ruby-constant">Rugged</span><span class="ruby-operator">::</span><span class="ruby-constant">Repository</span>.<span class="ruby-identifier">new</span>( <span class="ruby-identifier">discover_repository</span> )
   <span class="ruby-ivar">@git_object</span> = <span class="ruby-identifier">get_object</span>(<span class="ruby-identifier">options</span>[<span class="ruby-value">:sha</span>])
@@ -204,10 +210,10 @@
       <h3 class="section-header">Public Instance Methods</h3>
 
     
-      <div id="method-i-open_in_browser" class="method-detail ">
+      <div id="method-i-open_in_the_web" class="method-detail ">
         
         <div class="method-heading">
-          <span class="method-name">open_in_browser</span><span
+          <span class="method-name">open_in_the_web</span><span
             class="method-args">(args, options)</span>
           <span class="method-click-advice">click to toggle source</span>
         </div>
@@ -215,13 +221,16 @@
 
         <div class="method-description">
           
-          <p>git it opened_in_browser</p>
+          <dl class="rdoc-list note-list"><dt>Command
+<dd>
+<p>git it opened_in_the_web</p>
+</dd></dl>
           
 
           
-          <div class="method-source-code" id="open_in_browser-source">
-            <pre><span class="ruby-comment"># File lib/git-it/controller.rb, line 20</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">open_in_browser</span>(<span class="ruby-identifier">args</span>, <span class="ruby-identifier">options</span>)
+          <div class="method-source-code" id="open_in_the_web-source">
+            <pre><span class="ruby-comment"># File lib/git-it/controller.rb, line 22</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">open_in_the_web</span>(<span class="ruby-identifier">args</span>, <span class="ruby-identifier">options</span>)
   <span class="ruby-identifier">remote_origin_url</span> = <span class="ruby-identifier">repository</span>.<span class="ruby-identifier">config</span>[<span class="ruby-string">&quot;remote.origin.url&quot;</span>]
   <span class="ruby-comment"># =&gt; git@github.com:more-ron/git-it.git</span>
 
@@ -234,16 +243,16 @@
   <span class="ruby-identifier">github_link</span> = <span class="ruby-identifier">github_link</span>.<span class="ruby-identifier">gsub</span>(<span class="ruby-string">&quot;.git&quot;</span>, <span class="ruby-node">&quot;/tree/#{ branch_name }&quot;</span>)
   <span class="ruby-comment"># =&gt; https://github.com/more-ron/git-it/tree/master</span>
 
-  <span class="ruby-node">%xopen #{ github_link }`</span>
+  <span class="ruby-node">%xopen #{ github_link }`</span> <span class="ruby-comment"># should use launchy in the future</span>
 <span class="ruby-keyword">end</span></pre>
-          </div><!-- open_in_browser-source -->
+          </div><!-- open_in_the_web-source -->
           
         </div>
 
         
 
         
-      </div><!-- open_in_browser-method -->
+      </div><!-- open_in_the_web-method -->
 
     
     </section><!-- public-instance-method-details -->
