@@ -24,5 +24,5 @@ lib/git-it.rb
   s.add_development_dependency('rdoc')
   s.add_development_dependency('aruba')
   s.add_runtime_dependency('gli','2.5.4')
-  s.add_runtime_dependency('rugged', '0.17.0.b8')
+  s.add_runtime_dependency('rugged', '~>0.17.0.b7')
 end

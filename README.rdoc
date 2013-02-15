@@ -11,6 +11,8 @@ License::   Undecided
 
 == Use
 
+Open current branch in the web. Use it as an easy way to issue pull request in github.
+
     git it opened_in_the_web
 
 == Documentation
