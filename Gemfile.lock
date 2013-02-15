@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    git-it (0.0.3)
+    git-it (0.0.4)
       gli (= 2.5.4)
       rugged (~> 0.17.0.b7)
 
@@ -51,4 +51,3 @@ DEPENDENCIES
   gli
   rake
   rdoc
-  rugged (~> 0.17.0.b7)

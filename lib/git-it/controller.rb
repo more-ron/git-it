@@ -7,12 +7,17 @@ class GitIt::Controller
   attr_reader :repository
   attr_reader :git_object
 
-  # Options::
-  # * --sha=sha1 - git object reference to work on
+  # Global Options::
+  # * --help          - Show this message
+  # * -p, --path=path - repository path (default: {{present_working_directory}})
+  # * -s, --sha=sha   - SHA1 (default: {{current_head}})
+  # * --version       - Show gem's version
   def initialize(options)
-    @repository = Rugged::Repository.new( discover_repository )
-    @git_object = get_object(options[:sha])
+    @global_options = options
+    @repository     = Rugged::Repository.new( get_path(options[:path]) )
+    @git_object     = get_object( options[:sha] )
   end
+
 
   # ===========
   # = Actions =
@@ -35,11 +40,16 @@ class GitIt::Controller
     `open #{ github_link }` # should use launchy in the future
   end
 
+
   # ============
   # = Privates =
   # ============
 
   private
+
+  def get_path(path)
+    path == "{{present_working_directory}}" ? Dir.pwd : path
+  end
 
   def get_object(sha)
     if sha == "{{current_head}}"
@@ -49,8 +59,8 @@ class GitIt::Controller
     end
   end
 
-  def discover_repository
-    Rugged::Repository.discover( Dir.pwd )
+  def discover_repository(path)
+    Rugged::Repository.discover( path )
   end
 
   def remote_branches

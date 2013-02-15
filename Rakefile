@@ -5,16 +5,30 @@ require 'rdoc/task'
 require 'cucumber'
 require 'cucumber/rake/task'
 
+# =================
+# = Documentation =
+# =================
+
 Rake::RDocTask.new do |rd|
   rd.main = "README.rdoc"
   rd.rdoc_files.include("README.rdoc","lib/**/*.rb","bin/**/*")
   rd.title = 'Git it! Get it?'
 end
 
+
+# =============
+# = Gem Tasks =
+# =============
+
 spec = eval(File.read('git-it.gemspec'))
 
 Gem::PackageTask.new(spec) do |pkg|
 end
+
+
+# ==========
+# = Tests =
+# ==========
 
 CUKE_RESULTS = 'results.html'
 CLEAN << CUKE_RESULTS

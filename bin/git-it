@@ -15,8 +15,13 @@ version GitIt::VERSION
 # = Global Options =
 # ==================
 
-desc 'debug mode'
-switch [:d,:debug]
+# desc 'debug mode'
+# switch [:d,:debug]
+
+desc 'repository path'
+default_value '{{present_working_directory}}'
+arg_name 'path'
+flag [:p,:path]
 
 desc 'SHA1'
 default_value '{{current_head}}'
