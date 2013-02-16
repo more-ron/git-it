@@ -4,14 +4,17 @@ require 'rugged'
 # Grand central station for git it commands
 class GitIt::Commander
 
+  # current git repository
   attr_reader :repository
+
+  # current git object
   attr_reader :git_object
 
-  # Global Options::
-  # * --help          - Show this message
-  # * -p, --path=path - repository path (default: {{present_working_directory}})
-  # * -s, --sha=sha   - SHA1 (default: {{current_head}})
-  # * --version       - Show gem's version
+  # [global options]
+  #   --help::          Show this message
+  #   -p, --path=path:: repository path (default: {{present_working_directory}})
+  #   -s, --sha=sha::   SHA1 (default: {{current_head}})
+  #   --version::       Show gem's version
   def initialize(options)
     @global_options = options
     @repository     = Rugged::Repository.new( get_path(options[:path]) )
@@ -19,28 +22,51 @@ class GitIt::Commander
   end
 
 
+
   # ===========
   # = Actions =
   # ===========
 
-  # Command:: git it opened_in_the_web
+  # [get it opened in the web]
+  #
+  #   Opens closest branch in the web.
+  #
+  # [commands]
+  #
+  #   Open present working directory's repository and head in the web:
+  #     git it opened_in_the_web
+  #
+  #   Open specified repository in the path:
+  #     git it --path=the/path/to/the/repo opened_in_the_web
+  #
+  #   Open specified sha1:
+  #     git it --sha=50m35ha1 opened_in_the_web
+  #
+  #   Open specified repository in the path and sha1:
+  #     git it --path=the/path/to/the/repo --sha=50m35ha1 opened_in_the_web
+  #
+  # [notes]
+  #
+  #   * Currently only supports GitHub.com
+  #
   def open_in_the_web(args, options)
     remote_origin_url = repository.config["remote.origin.url"]
-    # => git@github.com:more-ron/git-it.git
+    #=> git@github.com:more-ron/git-it.git
 
     github_link = remote_origin_url.gsub("git@github.com:", "https://github.com/")
-    # => https://github.com/more-ron/git-it.git
+    #=> https://github.com/more-ron/git-it.git
 
     branch_name = closest_remote_branch.name.gsub("origin/", "")
-    # origin/gh-pages => gh-pages
+    #=> origin/gh-pages => gh-pages
     branch_name = closest_remote_branch.target.gsub("refs/remotes/origin/", "") if branch_name == "HEAD"
-    # refs/remotes/origin/master => master
+    #=> refs/remotes/origin/master => master
 
     github_link = github_link.gsub(".git", "/tree/#{ branch_name }")
-    # => https://github.com/more-ron/git-it/tree/master
+    #=> https://github.com/more-ron/git-it/tree/master
 
     `open #{ github_link }` # should use launchy in the future
   end
+
 
 
   # ============

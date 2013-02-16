@@ -10,7 +10,6 @@ program_desc 'Git it! Get it?'
 
 version GitIt::VERSION
 
-
 # ==================
 # = Global Options =
 # ==================
@@ -46,7 +45,8 @@ command :opened_in_the_web do |c|
   end
 end
 
-
+class Object # :nodoc:
+end
 
 # ====================
 # = Before and After =
