@@ -77,32 +77,80 @@
   
 <h1 id="label-git-it%21+get+it%3F">git-it! get it?</h1>
 
+<h2 id="label-Description">Description</h2>
+
 <p>Commands to help you git it.</p>
-<dl class="rdoc-list note-list"><dt>Author
-<dd>
-<p>Ronald Maravilla  (<a
-href="mailto:more.ron.too@gmail.com">more.ron.too@gmail.com</a>)</p>
-</dd><dt>License
-<dd>
-<p>Undecided</p>
-</dd></dl>
 
 <h2 id="label-Install">Install</h2>
 
-<pre>gem install git-it</pre>
+<p>Might not need sudo depending on your setup. To install as /usr/bin/git-it
+though you’ll need sudo.</p>
+
+<pre class="ruby"><span class="ruby-identifier">sudo</span> <span class="ruby-identifier">gem</span> <span class="ruby-identifier">install</span> <span class="ruby-identifier">git</span><span class="ruby-operator">-</span><span class="ruby-identifier">it</span> <span class="ruby-comment">#=&gt; install git-it gem</span>
+</pre>
 
 <h2 id="label-Use">Use</h2>
 
 <p>Open current branch in the web. Use it as an easy way to issue pull request
 in github.</p>
 
-<pre>git it opened_in_the_web</pre>
+<pre class="ruby"><span class="ruby-identifier">git</span> <span class="ruby-identifier">it</span> <span class="ruby-identifier">opened_in_the_web</span> <span class="ruby-comment">#=&gt; open https://github.com/more-ron/git-it/tree/master</span>
+</pre>
+
+<h2 id="label-Integrate+with+SourceTree">Integrate with <a href="http://www.sourcetreeapp.com/">SourceTree</a></h2>
+
+<p>Read instruction on how to add custom action <a
+href="http://blog.sourcetreeapp.com/2012/02/08/custom-actions-more-power-to-you/">here</a>.</p>
+
+<p>You will need to know where git-it got installed. To do that execute the
+following:</p>
+
+<pre class="ruby"><span class="ruby-identifier">which</span> <span class="ruby-identifier">git</span><span class="ruby-operator">-</span><span class="ruby-identifier">it</span> <span class="ruby-comment">#=&gt; /usr/bin/git-it</span>
+</pre>
+<dl class="rdoc-list label-list"><dt>Script to run
+<dd>
+<p>Based on the result from above set the script to:</p>
+
+<pre>/usr/bin/git-it</pre>
+</dd><dt>Parameters
+<dd>
+<p>get it opened in the web:</p>
+
+<pre>--path=$REPO --sha=$SHA opened_in_the_web</pre>
+</dd></dl>
 
 <h2 id="label-Documentation">Documentation</h2>
 
 <p>API Documentation is available <a
 href="http://more-ron.github.com/git-it/index.html">here</a>.  Recommend
 starting with <a href="GitIt/Commander.html">GitIt::Commander</a>.</p>
+<dl class="rdoc-list note-list"><dt>Author
+<dd>
+<p><a href="http://about.me/ronald.maravilla">Ronald Maravilla</a></p>
+</dd><dt>License
+<dd>
+<p><a href="http://opensource.org/licenses/MIT">MIT</a></p>
+
+<p>Copyright © 2013 Ronald Maravilla</p>
+
+<p>Permission is hereby granted, free of charge, to any person obtaining a
+copy of this software and associated documentation files (the “Software”),
+to deal in the Software without restriction, including without limitation
+the rights to use, copy, modify, merge, publish, distribute, sublicense,
+and/or sell copies of the Software, and to permit persons to whom the
+Software is furnished to do so, subject to the following conditions:</p>
+
+<p>The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.</p>
+
+<p>THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+DEALINGS IN THE SOFTWARE.</p>
+</dd></dl>
 
 <h1 id="label-git-it">git-it</h1>
 
