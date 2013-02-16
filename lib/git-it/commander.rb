@@ -1,5 +1,4 @@
 require 'rugged'
-# require 'debugger'
 
 # Grand central station for git it commands
 class GitIt::Commander

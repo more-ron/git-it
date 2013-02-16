@@ -47,7 +47,6 @@ spec = Gem::Specification.new do |s|
   s.add_development_dependency('rake')
   s.add_development_dependency('rdoc')
   s.add_development_dependency('aruba')
-  s.add_development_dependency('debugger')
 
   # ========================
   # = Runtime Dependencies =
