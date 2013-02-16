@@ -1,5 +1,7 @@
 = git-it! get it?
 
+{<img src="https://travis-ci.org/more-ron/git-it.png" />}[https://travis-ci.org/more-ron/git-it]
+
 == Description
 
 Commands to help you git it.
