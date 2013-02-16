@@ -31,7 +31,9 @@ class GitIt::Commander
     github_link = remote_origin_url.gsub("git@github.com:", "https://github.com/")
     # => https://github.com/more-ron/git-it.git
 
-    branch_name = closest_remote_branch.target.gsub("refs/remotes/origin/", "")
+    branch_name = closest_remote_branch.name.gsub("origin/", "")
+    # origin/gh-pages => gh-pages
+    branch_name = closest_remote_branch.target.gsub("refs/remotes/origin/", "") if branch_name == "HEAD"
     # refs/remotes/origin/master => master
 
     github_link = github_link.gsub(".git", "/tree/#{ branch_name }")
