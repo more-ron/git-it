@@ -17,6 +17,6 @@ Open current branch in the web. Use it as an easy way to issue pull request in g
 
 == Documentation
 
-API Documentation is available {here}[http://more-ron.github.com/git-it/index.html].  Recommend starting with GitIt::Controller.
+API Documentation is available {here}[http://more-ron.github.com/git-it/index.html].  Recommend starting with GitIt::Commander.
 
 :include:git-it.rdoc

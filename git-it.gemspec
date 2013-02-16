@@ -19,7 +19,7 @@ spec = Gem::Specification.new do |s|
   # ====================
   s.files = %w(
     bin/git-it
-    lib/git-it/controller.rb
+    lib/git-it/commander.rb
     lib/git-it/global_helper.rb
     lib/git-it/version.rb
     lib/git-it.rb

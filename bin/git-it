@@ -42,7 +42,7 @@ command :opened_in_the_web do |c|
   c.flag :site
 
   c.action do |global_options,options,args|
-    GitIt::Controller.new(global_options).open_in_the_web(args, options)
+    GitIt::Commander.new(global_options).open_in_the_web(args, options)
   end
 end
 

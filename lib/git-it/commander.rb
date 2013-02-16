@@ -2,7 +2,7 @@ require 'rugged'
 # require 'debugger'
 
 # Grand central station for git it commands
-class GitIt::Controller
+class GitIt::Commander
 
   attr_reader :repository
   attr_reader :git_object
