@@ -2,7 +2,7 @@
 
 {<img src="https://travis-ci.org/more-ron/git-it.png" />}[https://travis-ci.org/more-ron/git-it]
 
-== Description
+== Describe
 
 Commands to help you git it.
 
@@ -46,13 +46,14 @@ You will need to know where git-it got installed. To do that execute the followi
 
 
 
-== Documentation
+== Document
 
 API Documentation is available {here}[http://more-ron.github.com/git-it/index.html].  Recommend starting with GitIt::Commander.
 
 
 
 Author::    {Ronald Maravilla}[http://about.me/ronald.maravilla]
+Copyright:: Copyright © 2013 by Ronald Maravilla
 License::
 
   {MIT}[http://opensource.org/licenses/MIT]
