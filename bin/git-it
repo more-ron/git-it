@@ -2,9 +2,11 @@
 
 require 'gli'
 require 'git-it'
+require 'rugged'
+require 'launchy'
 
-include GLI::App
 extend GitIt::GlobalHelper
+include GLI::App
 
 program_desc 'Git it! Get it?'
 

@@ -1,5 +1,3 @@
-require 'rugged'
-
 # Grand central station for git it commands
 class GitIt::Commander
 
@@ -63,7 +61,7 @@ class GitIt::Commander
     github_link = github_link.gsub(".git", "/tree/#{ branch_name }")
     #=> https://github.com/more-ron/git-it/tree/master
 
-    `open #{ github_link }` # should use launchy in the future
+    Launchy.open( github_link )
   end
 
 
