@@ -16,6 +16,7 @@ class GitIt::Commander
     @global_options = options
     @repository     = Rugged::Repository.new( get_path(options[:path]) )
     @git_object     = get_object( options[:sha] )
+    @test_mode      = options[:test]
   end
 
 
@@ -47,21 +48,28 @@ class GitIt::Commander
   #   * Currently only supports GitHub.com
   #
   def open_in_the_web(args, options)
-    remote_origin_url = repository.config["remote.origin.url"]
-    #=> git@github.com:more-ron/git-it.git
+    closest_branch = closest_remote_branch || closest_local_branch
 
-    github_link = remote_origin_url.gsub("git@github.com:", "https://github.com/")
-    #=> https://github.com/more-ron/git-it.git
+    if closest_branch
+      remote_origin_url = repository.config["remote.origin.url"]
+      #=> git@github.com:more-ron/git-it.git
 
-    branch_name = closest_remote_branch.name.gsub("origin/", "")
-    #=> origin/gh-pages => gh-pages
-    branch_name = closest_remote_branch.target.gsub("refs/remotes/origin/", "") if branch_name == "HEAD"
-    #=> refs/remotes/origin/master => master
+      github_link = remote_origin_url.gsub("git@github.com:", "https://github.com/")
+      #=> https://github.com/more-ron/git-it.git
 
-    github_link = github_link.gsub(".git", "/tree/#{ branch_name }")
-    #=> https://github.com/more-ron/git-it/tree/master
+      branch_name = closest_branch.name.gsub("origin/", "")
+      #=> origin/gh-pages => gh-pages
 
-    Launchy.open( github_link )
+      branch_name = closest_remote_branch.target.gsub("refs/remotes/origin/", "") if branch_name == "HEAD"
+      #=> refs/remotes/origin/master => master
+
+      github_link = github_link.gsub(".git", "/tree/#{ branch_name }")
+      #=> https://github.com/more-ron/git-it/tree/master
+
+      launch github_link
+    else
+      fail "Could not find closest remote branch for sha: #{@git_object.oid.inspect}"
+    end
   end
 
 
@@ -102,22 +110,40 @@ class GitIt::Commander
 
   def closest_remote_branch
     remote_branches.min_by do |branch|
-      distance_in_object(:from => branch.tip.oid, :to => @git_object.oid)
+      distance_in_objects(:from => branch.tip.oid, :to => @git_object.oid)
     end
   end
 
-  def distance_in_object(options = {})
-    normal_direction_value   = _distance_in_object(options)
-    opposite_direction_value = _distance_in_object(:from => options[:to], :to => options[:from])
+  def closest_local_branch
+    local_branches.min_by do |branch|
+      distance_in_objects(:from => branch.tip.oid, :to => @git_object.oid)
+    end
+  end
+
+  def distance_in_objects(options = {})
+    normal_direction_value   = _distance_in_objects(options)
+    opposite_direction_value = _distance_in_objects(:from => options[:to], :to => options[:from])
 
     [normal_direction_value, opposite_direction_value].max
   end
 
-  def _distance_in_object(options = {})
+  def _distance_in_objects(options = {})
     walker = Rugged::Walker.new(repository)
     walker.push(options[:to])
     walker.hide(options[:from])
     walker.count
+  end
+
+  def test_mode?
+    @test_mode
+  end
+
+  def launch(what)
+    if test_mode?
+      puts "Launchy.open( #{what.inspect} )"
+    else
+      Launchy.open( what )
+    end
   end
 
 end

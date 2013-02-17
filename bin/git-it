@@ -16,7 +16,7 @@ version GitIt::VERSION
 # = Global Options =
 # ==================
 
-desc 'repository path'
+desc 'Repository path'
 default_value '{{present_working_directory}}'
 arg_name 'path'
 flag [:p,:path]
@@ -26,6 +26,9 @@ default_value '{{current_head}}'
 arg_name 'sha'
 flag [:s,:sha]
 
+desc 'Test mode'
+switch [:t,:test]
+default_value false
 
 # ============
 # = Commands =
