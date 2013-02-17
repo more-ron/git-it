@@ -1,8 +1,8 @@
-Sun, 17 Feb 2013 21:41:49 +0800
+Sun, 17 Feb 2013 23:16:08 +0800
 README.rdoc	Sun, 17 Feb 2013 21:41:47 +0800
 lib/git-it.rb	Sun, 17 Feb 2013 20:30:44 +0800
 lib/git-it/commander.rb	Sun, 17 Feb 2013 21:39:53 +0800
 lib/git-it/global_helper.rb	Sat, 16 Feb 2013 20:51:01 +0800
-lib/git-it/link_generator.rb	Sun, 17 Feb 2013 21:39:33 +0800
-lib/git-it/version.rb	Sun, 17 Feb 2013 20:52:36 +0800
+lib/git-it/link_generator.rb	Sun, 17 Feb 2013 22:12:04 +0800
+lib/git-it/version.rb	Sun, 17 Feb 2013 23:16:06 +0800
 bin/git-it	Sun, 17 Feb 2013 20:51:14 +0800

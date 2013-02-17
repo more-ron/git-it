@@ -182,11 +182,11 @@
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">repository_url</span>)
   <span class="ruby-ivar">@repository_url</span> = <span class="ruby-identifier">repository_url</span>
 
-  <span class="ruby-ivar">@repo</span> = <span class="ruby-regexp">%r^git@(?&lt;site&gt;.*):(?&lt;user&gt;.*)\/(?&lt;proj&gt;.*).git$/</span>.<span class="ruby-identifier">match</span>(<span class="ruby-ivar">@repository_url</span>)
+  <span class="ruby-ivar">@repo</span> = <span class="ruby-regexp">%r^git@(.*):(.*)\/(.*).git$/</span>.<span class="ruby-identifier">match</span>(<span class="ruby-ivar">@repository_url</span>)
 
-  <span class="ruby-ivar">@site</span> = <span class="ruby-ivar">@repo</span>[<span class="ruby-value">:site</span>]
-  <span class="ruby-ivar">@user</span> = <span class="ruby-ivar">@repo</span>[<span class="ruby-value">:user</span>]
-  <span class="ruby-ivar">@proj</span> = <span class="ruby-ivar">@repo</span>[<span class="ruby-value">:proj</span>]
+  <span class="ruby-ivar">@site</span> = <span class="ruby-ivar">@repo</span>[<span class="ruby-value">1</span>]
+  <span class="ruby-ivar">@user</span> = <span class="ruby-ivar">@repo</span>[<span class="ruby-value">2</span>]
+  <span class="ruby-ivar">@proj</span> = <span class="ruby-ivar">@repo</span>[<span class="ruby-value">3</span>]
 <span class="ruby-keyword">end</span></pre>
           </div><!-- new-source -->
           
