@@ -51,6 +51,7 @@ spec = Gem::Specification.new do |s|
   # ========================
   # = Runtime Dependencies =
   # ========================
-  s.add_runtime_dependency('gli','2.5.4')
-  s.add_runtime_dependency('rugged', '~>0.17.0.b7')
+  s.add_runtime_dependency('gli','~> 2.5.4')
+  s.add_runtime_dependency('rugged', '~> 0.17.0.b7')
+  s.add_runtime_dependency('launchy', '~> 2.2.0')
 end

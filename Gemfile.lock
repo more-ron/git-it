@@ -2,12 +2,14 @@ PATH
   remote: .
   specs:
     git-it (0.0.6)
-      gli (= 2.5.4)
+      gli (~> 2.5.4)
+      launchy (~> 2.2.0)
       rugged (~> 0.17.0.b7)
 
 GEM
   remote: https://rubygems.org/
   specs:
+    addressable (2.3.2)
     aruba (0.5.1)
       childprocess (~> 0.3.6)
       cucumber (>= 1.1.1)
@@ -26,6 +28,8 @@ GEM
       json (>= 1.7.6)
     gli (2.5.4)
     json (1.7.7)
+    launchy (2.2.0)
+      addressable (~> 2.3)
     rake (10.0.3)
     rdoc (3.12.1)
       json (~> 1.4)
