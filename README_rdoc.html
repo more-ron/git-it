@@ -65,6 +65,8 @@
   
     <li><a href="./GitIt/GlobalHelper.html">GitIt::GlobalHelper</a>
   
+    <li><a href="./GitIt/LinkGenerator.html">GitIt::LinkGenerator</a>
+  
     <li><a href="./Object.html">Object</a>
   
   </ul>
@@ -94,10 +96,19 @@ though you’ll need sudo.</p>
 
 <h2 id="label-Use">Use</h2>
 
-<p>Open current branch in the web. Use it as an easy way to issue pull request
-in github.</p>
+<p>Open branch</p>
 
-<pre class="ruby"><span class="ruby-identifier">git</span> <span class="ruby-identifier">it</span> <span class="ruby-identifier">opened_in_the_web</span> <span class="ruby-comment">#=&gt; open https://github.com/more-ron/git-it/tree/master</span>
+<pre class="ruby"><span class="ruby-identifier">git</span> <span class="ruby-identifier">it</span> <span class="ruby-identifier">opened</span> <span class="ruby-comment">#=&gt; https://github.com/more-ron/git-it/tree/gh-pages</span>
+</pre>
+
+<p>Compare branches</p>
+
+<pre class="ruby"><span class="ruby-identifier">git</span> <span class="ruby-identifier">it</span> <span class="ruby-identifier">compared</span> <span class="ruby-comment">#=&gt; https://github.com/more-ron/git-it/compare/master...gh-pages</span>
+</pre>
+
+<p>Issue a pull request</p>
+
+<pre class="ruby"><span class="ruby-identifier">git</span> <span class="ruby-identifier">it</span> <span class="ruby-identifier">pulled</span> <span class="ruby-comment">#=&gt; https://github.com/more-ron/git-it/pull/new/more-ron:master...gh-pages</span>
 </pre>
 
 <h2 id="label-Integrate+with+SourceTree">Integrate with <a href="http://www.sourcetreeapp.com/">SourceTree</a></h2>
@@ -117,9 +128,25 @@ following:</p>
 <pre>/usr/bin/git-it</pre>
 </dd><dt>Parameters
 <dd>
-<p>get it opened in the web:</p>
+<p>get it opened:</p>
 
-<pre>--path=$REPO --sha=$SHA opened_in_the_web</pre>
+<pre>--path=$REPO --sha=$SHA opened</pre>
+
+<p>get it compared:</p>
+
+<pre>--path=$REPO --sha=$SHA compared</pre>
+
+<p>get it compared to release:</p>
+
+<pre>--path=$REPO --sha=$SHA compared --to=release</pre>
+
+<p>get it pulled:</p>
+
+<pre>--path=$REPO --sha=$SHA pulled</pre>
+
+<p>get it pulled to release:</p>
+
+<pre>--path=$REPO --sha=$SHA pulled --to=release</pre>
 </dd></dl>
 
 <h2 id="label-Document">Document</h2>

@@ -72,7 +72,11 @@
     
     <li><a href="#method-c-new">::new</a>
     
-    <li><a href="#method-i-open_in_the_web">#open_in_the_web</a>
+    <li><a href="#method-i-compare">#compare</a>
+    
+    <li><a href="#method-i-open">#open</a>
+    
+    <li><a href="#method-i-pull">#pull</a>
     
   </ul>
 </nav>
@@ -100,6 +104,8 @@
     <li><a href="../GitIt/Commander.html">GitIt::Commander</a>
   
     <li><a href="../GitIt/GlobalHelper.html">GitIt::GlobalHelper</a>
+  
+    <li><a href="../GitIt/LinkGenerator.html">GitIt::LinkGenerator</a>
   
     <li><a href="../Object.html">Object</a>
   
@@ -190,21 +196,37 @@
 </dd><dt>-s, –sha=sha
 <dd>
 <p>SHA1 (default: {{current_head}})</p>
-</dd><dt>–version
-<dd>
-<p>Show gem’s version</p>
 </dd></dl>
+</dd><dt>sample usage
+<dd>
+<p>Open present working directory’s repository branch:</p>
+
+<pre>git it opened</pre>
+
+<p>Open specified repository in the path:</p>
+
+<pre>git it --path=the/path/to/the/repo opened</pre>
+
+<p>Open specified sha1:</p>
+
+<pre>git it --sha=50m35ha1 opened</pre>
+
+<p>Open specified repository in the path and sha1:</p>
+
+<pre>git it --path=the/path/to/the/repo --sha=50m35ha1 opened</pre>
 </dd></dl>
           
 
           
           <div class="method-source-code" id="new-source">
-            <pre><span class="ruby-comment"># File lib/git-it/commander.rb, line 15</span>
+            <pre><span class="ruby-comment"># File lib/git-it/commander.rb, line 31</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">options</span>)
   <span class="ruby-ivar">@global_options</span> = <span class="ruby-identifier">options</span>
   <span class="ruby-ivar">@repository</span>     = <span class="ruby-constant">Rugged</span><span class="ruby-operator">::</span><span class="ruby-constant">Repository</span>.<span class="ruby-identifier">new</span>( <span class="ruby-identifier">get_path</span>(<span class="ruby-identifier">options</span>[<span class="ruby-value">:path</span>]) )
   <span class="ruby-ivar">@git_object</span>     = <span class="ruby-identifier">get_object</span>( <span class="ruby-identifier">options</span>[<span class="ruby-value">:sha</span>] )
   <span class="ruby-ivar">@test_mode</span>      = <span class="ruby-identifier">options</span>[<span class="ruby-value">:test</span>]
+
+  <span class="ruby-ivar">@link_generator</span> = <span class="ruby-constant">LinkGenerator</span>.<span class="ruby-identifier">new</span>( <span class="ruby-ivar">@repository</span>.<span class="ruby-identifier">config</span>[<span class="ruby-string">&quot;remote.origin.url&quot;</span>] )
 <span class="ruby-keyword">end</span></pre>
           </div><!-- new-source -->
           
@@ -222,10 +244,10 @@
       <h3 class="section-header">Public Instance Methods</h3>
 
     
-      <div id="method-i-open_in_the_web" class="method-detail ">
+      <div id="method-i-compare" class="method-detail ">
         
         <div class="method-heading">
-          <span class="method-name">open_in_the_web</span><span
+          <span class="method-name">compare</span><span
             class="method-args">(args, options)</span>
           <span class="method-click-advice">click to toggle source</span>
         </div>
@@ -233,68 +255,143 @@
 
         <div class="method-description">
           
-          <dl class="rdoc-list label-list"><dt>get it opened in the web
+          <dl class="rdoc-list label-list"><dt>get it compared
 <dd>
-<p>Opens closest branch in the web.</p>
-</dd><dt>commands
+<p>Compares the current branch to another branch (default: master)</p>
+</dd><dt>sample usage
 <dd>
-<p>Open present working directory’s repository and head in the web:</p>
+<p>Compare the current branch to master branch</p>
 
-<pre>git it opened_in_the_web</pre>
+<pre>git it compared</pre>
 
-<p>Open specified repository in the path:</p>
+<p>Compare the current branch to release branch</p>
 
-<pre>git it --path=the/path/to/the/repo opened_in_the_web</pre>
-
-<p>Open specified sha1:</p>
-
-<pre>git it --sha=50m35ha1 opened_in_the_web</pre>
-
-<p>Open specified repository in the path and sha1:</p>
-
-<pre>git it --path=the/path/to/the/repo --sha=50m35ha1 opened_in_the_web</pre>
-</dd><dt>notes
-<dd><ul><li>
-<p>Currently only supports GitHub.com</p>
-</li></ul>
+<pre>git it compared --to=release</pre>
 </dd></dl>
           
 
           
-          <div class="method-source-code" id="open_in_the_web-source">
-            <pre><span class="ruby-comment"># File lib/git-it/commander.rb, line 50</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">open_in_the_web</span>(<span class="ruby-identifier">args</span>, <span class="ruby-identifier">options</span>)
-  <span class="ruby-identifier">closest_branch</span> = <span class="ruby-identifier">closest_remote_branch</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">closest_local_branch</span>
+          <div class="method-source-code" id="compare-source">
+            <pre><span class="ruby-comment"># File lib/git-it/commander.rb, line 80</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">compare</span>(<span class="ruby-identifier">args</span>, <span class="ruby-identifier">options</span>)
+  <span class="ruby-identifier">_closest_branch</span> = <span class="ruby-identifier">closest_branch</span>
 
-  <span class="ruby-keyword">if</span> <span class="ruby-identifier">closest_branch</span>
-    <span class="ruby-identifier">remote_origin_url</span> = <span class="ruby-identifier">repository</span>.<span class="ruby-identifier">config</span>[<span class="ruby-string">&quot;remote.origin.url&quot;</span>]
-    <span class="ruby-comment">#=&gt; git@github.com:more-ron/git-it.git</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">_closest_branch</span>
+    <span class="ruby-identifier">branch_name</span> = <span class="ruby-identifier">clean_branch_name_for</span>( <span class="ruby-identifier">_closest_branch</span> )
+    <span class="ruby-identifier">link</span>        = <span class="ruby-ivar">@link_generator</span>.<span class="ruby-identifier">compare_branches_link</span>( <span class="ruby-identifier">branch_name</span>, <span class="ruby-identifier">options</span>[<span class="ruby-value">:to</span>] <span class="ruby-operator">||</span> <span class="ruby-string">&quot;master&quot;</span> )
 
-    <span class="ruby-identifier">github_link</span> = <span class="ruby-identifier">remote_origin_url</span>.<span class="ruby-identifier">gsub</span>(<span class="ruby-string">&quot;git@github.com:&quot;</span>, <span class="ruby-string">&quot;https://github.com/&quot;</span>)
-    <span class="ruby-comment">#=&gt; https://github.com/more-ron/git-it.git</span>
-
-    <span class="ruby-identifier">branch_name</span> = <span class="ruby-identifier">closest_branch</span>.<span class="ruby-identifier">name</span>.<span class="ruby-identifier">gsub</span>(<span class="ruby-string">&quot;origin/&quot;</span>, <span class="ruby-string">&quot;&quot;</span>)
-    <span class="ruby-comment">#=&gt; origin/gh-pages =&gt; gh-pages</span>
-
-    <span class="ruby-identifier">branch_name</span> = <span class="ruby-identifier">closest_remote_branch</span>.<span class="ruby-identifier">target</span>.<span class="ruby-identifier">gsub</span>(<span class="ruby-string">&quot;refs/remotes/origin/&quot;</span>, <span class="ruby-string">&quot;&quot;</span>) <span class="ruby-keyword">if</span> <span class="ruby-identifier">branch_name</span> <span class="ruby-operator">==</span> <span class="ruby-string">&quot;HEAD&quot;</span>
-    <span class="ruby-comment">#=&gt; refs/remotes/origin/master =&gt; master</span>
-
-    <span class="ruby-identifier">github_link</span> = <span class="ruby-identifier">github_link</span>.<span class="ruby-identifier">gsub</span>(<span class="ruby-string">&quot;.git&quot;</span>, <span class="ruby-node">&quot;/tree/#{ branch_name }&quot;</span>)
-    <span class="ruby-comment">#=&gt; https://github.com/more-ron/git-it/tree/master</span>
-
-    <span class="ruby-identifier">launch</span> <span class="ruby-identifier">github_link</span>
+    <span class="ruby-identifier">launch</span> <span class="ruby-identifier">link</span>
   <span class="ruby-keyword">else</span>
     <span class="ruby-identifier">fail</span> <span class="ruby-node">&quot;Could not find closest remote branch for sha: #{@git_object.oid.inspect}&quot;</span>
   <span class="ruby-keyword">end</span>
 <span class="ruby-keyword">end</span></pre>
-          </div><!-- open_in_the_web-source -->
+          </div><!-- compare-source -->
           
         </div>
 
         
 
         
-      </div><!-- open_in_the_web-method -->
+      </div><!-- compare-method -->
+
+    
+      <div id="method-i-open" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">open</span><span
+            class="method-args">(args, options)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <dl class="rdoc-list label-list"><dt>get it opened
+<dd>
+<p>Opens the current branch</p>
+</dd><dt>sample usage
+<dd>
+<p>Open the current branch:</p>
+
+<pre>git it opened</pre>
+</dd></dl>
+          
+
+          
+          <div class="method-source-code" id="open-source">
+            <pre><span class="ruby-comment"># File lib/git-it/commander.rb, line 55</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">open</span>(<span class="ruby-identifier">args</span>, <span class="ruby-identifier">options</span>)
+  <span class="ruby-identifier">_closest_branch</span> = <span class="ruby-identifier">closest_branch</span>
+
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">_closest_branch</span>
+    <span class="ruby-identifier">branch_name</span> = <span class="ruby-identifier">clean_branch_name_for</span>( <span class="ruby-identifier">_closest_branch</span> )
+    <span class="ruby-identifier">link</span>        = <span class="ruby-ivar">@link_generator</span>.<span class="ruby-identifier">branch_link</span>( <span class="ruby-identifier">branch_name</span> )
+
+    <span class="ruby-identifier">launch</span> <span class="ruby-identifier">link</span>
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">fail</span> <span class="ruby-node">&quot;Could not find closest remote branch for sha: #{@git_object.oid.inspect}&quot;</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- open-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- open-method -->
+
+    
+      <div id="method-i-pull" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">pull</span><span
+            class="method-args">(args, options)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <dl class="rdoc-list label-list"><dt>get it pulled
+<dd>
+<p>Issues a pull request of the current branch into another branch (default:
+master)</p>
+</dd><dt>sample usage
+<dd>
+<p>Issue a pull request of the current branch into master branch</p>
+
+<pre>git it pulled</pre>
+
+<p>Issue a pull request of the current branch into release branch</p>
+
+<pre>git it pulled --to=release</pre>
+</dd></dl>
+          
+
+          
+          <div class="method-source-code" id="pull-source">
+            <pre><span class="ruby-comment"># File lib/git-it/commander.rb, line 105</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">pull</span>(<span class="ruby-identifier">args</span>, <span class="ruby-identifier">options</span>)
+  <span class="ruby-identifier">_closest_branch</span> = <span class="ruby-identifier">closest_branch</span>
+
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">_closest_branch</span>
+    <span class="ruby-identifier">branch_name</span> = <span class="ruby-identifier">clean_branch_name_for</span>( <span class="ruby-identifier">_closest_branch</span> )
+    <span class="ruby-identifier">link</span>        = <span class="ruby-ivar">@link_generator</span>.<span class="ruby-identifier">pull_request_link</span>( <span class="ruby-identifier">branch_name</span>, <span class="ruby-identifier">options</span>[<span class="ruby-value">:to</span>] <span class="ruby-operator">||</span> <span class="ruby-string">&quot;master&quot;</span> )
+
+    <span class="ruby-identifier">launch</span> <span class="ruby-identifier">link</span>
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">fail</span> <span class="ruby-node">&quot;Could not find closest remote branch for sha: #{@git_object.oid.inspect}&quot;</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- pull-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- pull-method -->
 
     
     </section><!-- public-instance-method-details -->

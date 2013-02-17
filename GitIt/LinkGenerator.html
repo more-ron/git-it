@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+
+<title>class GitIt::LinkGenerator - Git it! Get it?</title>
+
+<link type="text/css" media="screen" href="../rdoc.css" rel="stylesheet">
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "../";
+</script>
+
+<script type="text/javascript" charset="utf-8" src="../js/jquery.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/navigation.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/search_index.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/search.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/searcher.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/darkfish.js"></script>
+
+
+<body id="top" class="class">
+<nav id="metadata">
+  <nav id="home-section" class="section">
+  <h3 class="section-header">
+    <a href="../index.html">Home</a>
+    <a href="../table_of_contents.html#classes">Classes</a>
+    <a href="../table_of_contents.html#methods">Methods</a>
+  </h3>
+</nav>
+
+
+  <nav id="search-section" class="section project-section" class="initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <h3 class="section-header">
+      <input type="text" name="search" placeholder="Search" id="search-field"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </h3>
+  </form>
+
+  <ul id="search-results" class="initially-hidden"></ul>
+</nav>
+
+
+  <div id="file-metadata">
+    <nav id="file-list-section" class="section">
+  <h3 class="section-header">Defined In</h3>
+  <ul>
+    <li>lib/git-it/link_generator.rb
+  </ul>
+</nav>
+
+    
+  </div>
+
+  <div id="class-metadata">
+    
+    <nav id="parent-class-section" class="section">
+  <h3 class="section-header">Parent</h3>
+  
+  <p class="link"><a href="../Object.html">Object</a>
+  
+</nav>
+
+    
+    <!-- Method Quickref -->
+<nav id="method-list-section" class="section">
+  <h3 class="section-header">Methods</h3>
+
+  <ul class="link-list">
+    
+    <li><a href="#method-c-new">::new</a>
+    
+    <li><a href="#method-i-branch_link">#branch_link</a>
+    
+    <li><a href="#method-i-compare_branches_link">#compare_branches_link</a>
+    
+    <li><a href="#method-i-pull_request_link">#pull_request_link</a>
+    
+  </ul>
+</nav>
+
+  </div>
+
+  <div id="project-metadata">
+    <nav id="fileindex-section" class="section project-section">
+  <h3 class="section-header">Pages</h3>
+
+  <ul>
+  
+    <li class="file"><a href="../README_rdoc.html">README</a>
+  
+  </ul>
+</nav>
+
+    <nav id="classindex-section" class="section project-section">
+  <h3 class="section-header">Class and Module Index</h3>
+
+  <ul class="link-list">
+  
+    <li><a href="../GitIt.html">GitIt</a>
+  
+    <li><a href="../GitIt/Commander.html">GitIt::Commander</a>
+  
+    <li><a href="../GitIt/GlobalHelper.html">GitIt::GlobalHelper</a>
+  
+    <li><a href="../GitIt/LinkGenerator.html">GitIt::LinkGenerator</a>
+  
+    <li><a href="../Object.html">Object</a>
+  
+  </ul>
+</nav>
+
+  </div>
+</nav>
+
+<div id="documentation">
+  <h1 class="class">class GitIt::LinkGenerator</h1>
+
+  <div id="description" class="description">
+    
+<p>Link generator compatible with GitHub like site UI</p>
+
+  </div><!-- description -->
+
+  
+  
+  
+  <section id="5Buntitled-5D" class="documentation-section">
+    
+
+    
+
+    
+
+    
+    <!-- Attributes -->
+    <section id="attribute-method-details" class="method-section section">
+      <h3 class="section-header">Attributes</h3>
+
+      
+      <div id="attribute-i-repository_url" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">repository_url</span><span
+            class="attribute-access-type">[R]</span>
+        </div>
+
+        <div class="method-description">
+        
+        <p>git@github.com:more-ron/git-it.git</p>
+        
+        </div>
+      </div>
+      
+    </section><!-- attribute-method-details -->
+    
+
+    <!-- Methods -->
+    
+     <section id="public-class-5Buntitled-5D-method-details" class="method-section section">
+      <h3 class="section-header">Public Class Methods</h3>
+
+    
+      <div id="method-c-new" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">new</span><span
+            class="method-args">(repository_url)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>all you need is the repository url</p>
+          
+
+          
+          <div class="method-source-code" id="new-source">
+            <pre><span class="ruby-comment"># File lib/git-it/link_generator.rb, line 9</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">repository_url</span>)
+  <span class="ruby-ivar">@repository_url</span> = <span class="ruby-identifier">repository_url</span>
+
+  <span class="ruby-ivar">@repo</span> = <span class="ruby-regexp">%r^git@(?&lt;site&gt;.*):(?&lt;user&gt;.*)\/(?&lt;proj&gt;.*).git$/</span>.<span class="ruby-identifier">match</span>(<span class="ruby-ivar">@repository_url</span>)
+
+  <span class="ruby-ivar">@site</span> = <span class="ruby-ivar">@repo</span>[<span class="ruby-value">:site</span>]
+  <span class="ruby-ivar">@user</span> = <span class="ruby-ivar">@repo</span>[<span class="ruby-value">:user</span>]
+  <span class="ruby-ivar">@proj</span> = <span class="ruby-ivar">@repo</span>[<span class="ruby-value">:proj</span>]
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- new-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- new-method -->
+
+    
+    </section><!-- public-class-method-details -->
+  
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section section">
+      <h3 class="section-header">Public Instance Methods</h3>
+
+    
+      <div id="method-i-branch_link" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">branch_link</span><span
+            class="method-args">(branch_name)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p><a
+href="https://github.com/more-ron/git-it/tree/gh-pages">github.com/more-ron/git-it/tree/gh-pages</a></p>
+          
+
+          
+          <div class="method-source-code" id="branch_link-source">
+            <pre><span class="ruby-comment"># File lib/git-it/link_generator.rb, line 20</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">branch_link</span>(<span class="ruby-identifier">branch_name</span>)
+  <span class="ruby-node">&quot;https://#{@site}/#{@user}/#{@proj}/tree/#{branch_name}&quot;</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- branch_link-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- branch_link-method -->
+
+    
+      <div id="method-i-compare_branches_link" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">compare_branches_link</span><span
+            class="method-args">(to, from = "master")</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p><a
+href="https://github.com/more-ron/git-it/compare/master...gh-pages">github.com/more-ron/git-it/compare/master...gh-pages</a></p>
+          
+
+          
+          <div class="method-source-code" id="compare_branches_link-source">
+            <pre><span class="ruby-comment"># File lib/git-it/link_generator.rb, line 25</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">compare_branches_link</span>(<span class="ruby-identifier">to</span>, <span class="ruby-identifier">from</span> = <span class="ruby-string">&quot;master&quot;</span>)
+  <span class="ruby-node">&quot;https://#{@site}/#{@user}/#{@proj}/compare/#{from}...#{to}&quot;</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- compare_branches_link-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- compare_branches_link-method -->
+
+    
+      <div id="method-i-pull_request_link" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">pull_request_link</span><span
+            class="method-args">(source, destination = "master")</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p><a
+href="https://github.com/more-ron/git-it/pull/new/more-ron:master...gh-pages">github.com/more-ron/git-it/pull/new/more-ron:master...gh-pages</a></p>
+          
+
+          
+          <div class="method-source-code" id="pull_request_link-source">
+            <pre><span class="ruby-comment"># File lib/git-it/link_generator.rb, line 30</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">pull_request_link</span>(<span class="ruby-identifier">source</span>, <span class="ruby-identifier">destination</span> = <span class="ruby-string">&quot;master&quot;</span>)
+  <span class="ruby-node">&quot;https://#{@site}/#{@user}/#{@proj}/pull/new/#{@user}:#{destination}...#{source}&quot;</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- pull_request_link-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- pull_request_link-method -->
+
+    
+    </section><!-- public-instance-method-details -->
+  
+  </section><!-- 5Buntitled-5D -->
+
+</div><!-- documentation -->
+
+
+<footer id="validator-badges">
+  <p><a href="http://validator.w3.org/check/referer">[Validate]</a>
+  <p>Generated by <a href="https://github.com/rdoc/rdoc">RDoc</a> 3.12.1.
+  <p>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish Rdoc Generator</a> 3.
+</footer>
+
