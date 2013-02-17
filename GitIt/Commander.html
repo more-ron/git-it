@@ -165,6 +165,59 @@
 
     <!-- Methods -->
     
+     <section id="public-class-5Buntitled-5D-method-details" class="method-section section">
+      <h3 class="section-header">Public Class Methods</h3>
+
+    
+      <div id="method-c-new" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">new</span><span
+            class="method-args">(options)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <dl class="rdoc-list label-list"><dt>global options
+<dd><dl class="rdoc-list note-list"><dt>–help
+<dd>
+<p>Show this message</p>
+</dd><dt>-p, –path=path
+<dd>
+<p>repository path (default: {{present_working_directory}})</p>
+</dd><dt>-s, –sha=sha
+<dd>
+<p>SHA1 (default: {{current_head}})</p>
+</dd><dt>–version
+<dd>
+<p>Show gem’s version</p>
+</dd></dl>
+</dd></dl>
+          
+
+          
+          <div class="method-source-code" id="new-source">
+            <pre><span class="ruby-comment"># File lib/git-it/commander.rb, line 15</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">options</span>)
+  <span class="ruby-ivar">@global_options</span> = <span class="ruby-identifier">options</span>
+  <span class="ruby-ivar">@repository</span>     = <span class="ruby-constant">Rugged</span><span class="ruby-operator">::</span><span class="ruby-constant">Repository</span>.<span class="ruby-identifier">new</span>( <span class="ruby-identifier">get_path</span>(<span class="ruby-identifier">options</span>[<span class="ruby-value">:path</span>]) )
+  <span class="ruby-ivar">@git_object</span>     = <span class="ruby-identifier">get_object</span>( <span class="ruby-identifier">options</span>[<span class="ruby-value">:sha</span>] )
+  <span class="ruby-ivar">@test_mode</span>      = <span class="ruby-identifier">options</span>[<span class="ruby-value">:test</span>]
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- new-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- new-method -->
+
+    
+    </section><!-- public-class-method-details -->
+  
      <section id="public-instance-5Buntitled-5D-method-details" class="method-section section">
       <h3 class="section-header">Public Instance Methods</h3>
 
@@ -209,23 +262,30 @@
 
           
           <div class="method-source-code" id="open_in_the_web-source">
-            <pre><span class="ruby-comment"># File lib/git-it/commander.rb, line 49</span>
+            <pre><span class="ruby-comment"># File lib/git-it/commander.rb, line 50</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">open_in_the_web</span>(<span class="ruby-identifier">args</span>, <span class="ruby-identifier">options</span>)
-  <span class="ruby-identifier">remote_origin_url</span> = <span class="ruby-identifier">repository</span>.<span class="ruby-identifier">config</span>[<span class="ruby-string">&quot;remote.origin.url&quot;</span>]
-  <span class="ruby-comment">#=&gt; git@github.com:more-ron/git-it.git</span>
+  <span class="ruby-identifier">closest_branch</span> = <span class="ruby-identifier">closest_remote_branch</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">closest_local_branch</span>
 
-  <span class="ruby-identifier">github_link</span> = <span class="ruby-identifier">remote_origin_url</span>.<span class="ruby-identifier">gsub</span>(<span class="ruby-string">&quot;git@github.com:&quot;</span>, <span class="ruby-string">&quot;https://github.com/&quot;</span>)
-  <span class="ruby-comment">#=&gt; https://github.com/more-ron/git-it.git</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">closest_branch</span>
+    <span class="ruby-identifier">remote_origin_url</span> = <span class="ruby-identifier">repository</span>.<span class="ruby-identifier">config</span>[<span class="ruby-string">&quot;remote.origin.url&quot;</span>]
+    <span class="ruby-comment">#=&gt; git@github.com:more-ron/git-it.git</span>
 
-  <span class="ruby-identifier">branch_name</span> = <span class="ruby-identifier">closest_remote_branch</span>.<span class="ruby-identifier">name</span>.<span class="ruby-identifier">gsub</span>(<span class="ruby-string">&quot;origin/&quot;</span>, <span class="ruby-string">&quot;&quot;</span>)
-  <span class="ruby-comment">#=&gt; origin/gh-pages =&gt; gh-pages</span>
-  <span class="ruby-identifier">branch_name</span> = <span class="ruby-identifier">closest_remote_branch</span>.<span class="ruby-identifier">target</span>.<span class="ruby-identifier">gsub</span>(<span class="ruby-string">&quot;refs/remotes/origin/&quot;</span>, <span class="ruby-string">&quot;&quot;</span>) <span class="ruby-keyword">if</span> <span class="ruby-identifier">branch_name</span> <span class="ruby-operator">==</span> <span class="ruby-string">&quot;HEAD&quot;</span>
-  <span class="ruby-comment">#=&gt; refs/remotes/origin/master =&gt; master</span>
+    <span class="ruby-identifier">github_link</span> = <span class="ruby-identifier">remote_origin_url</span>.<span class="ruby-identifier">gsub</span>(<span class="ruby-string">&quot;git@github.com:&quot;</span>, <span class="ruby-string">&quot;https://github.com/&quot;</span>)
+    <span class="ruby-comment">#=&gt; https://github.com/more-ron/git-it.git</span>
 
-  <span class="ruby-identifier">github_link</span> = <span class="ruby-identifier">github_link</span>.<span class="ruby-identifier">gsub</span>(<span class="ruby-string">&quot;.git&quot;</span>, <span class="ruby-node">&quot;/tree/#{ branch_name }&quot;</span>)
-  <span class="ruby-comment">#=&gt; https://github.com/more-ron/git-it/tree/master</span>
+    <span class="ruby-identifier">branch_name</span> = <span class="ruby-identifier">closest_branch</span>.<span class="ruby-identifier">name</span>.<span class="ruby-identifier">gsub</span>(<span class="ruby-string">&quot;origin/&quot;</span>, <span class="ruby-string">&quot;&quot;</span>)
+    <span class="ruby-comment">#=&gt; origin/gh-pages =&gt; gh-pages</span>
 
-  <span class="ruby-constant">Launchy</span>.<span class="ruby-identifier">open</span>( <span class="ruby-identifier">github_link</span> )
+    <span class="ruby-identifier">branch_name</span> = <span class="ruby-identifier">closest_remote_branch</span>.<span class="ruby-identifier">target</span>.<span class="ruby-identifier">gsub</span>(<span class="ruby-string">&quot;refs/remotes/origin/&quot;</span>, <span class="ruby-string">&quot;&quot;</span>) <span class="ruby-keyword">if</span> <span class="ruby-identifier">branch_name</span> <span class="ruby-operator">==</span> <span class="ruby-string">&quot;HEAD&quot;</span>
+    <span class="ruby-comment">#=&gt; refs/remotes/origin/master =&gt; master</span>
+
+    <span class="ruby-identifier">github_link</span> = <span class="ruby-identifier">github_link</span>.<span class="ruby-identifier">gsub</span>(<span class="ruby-string">&quot;.git&quot;</span>, <span class="ruby-node">&quot;/tree/#{ branch_name }&quot;</span>)
+    <span class="ruby-comment">#=&gt; https://github.com/more-ron/git-it/tree/master</span>
+
+    <span class="ruby-identifier">launch</span> <span class="ruby-identifier">github_link</span>
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">fail</span> <span class="ruby-node">&quot;Could not find closest remote branch for sha: #{@git_object.oid.inspect}&quot;</span>
+  <span class="ruby-keyword">end</span>
 <span class="ruby-keyword">end</span></pre>
           </div><!-- open_in_the_web-source -->
           
@@ -238,58 +298,6 @@
 
     
     </section><!-- public-instance-method-details -->
-  
-     <section id="public-class-5Buntitled-5D-method-details" class="method-section section">
-      <h3 class="section-header">Public Class Methods</h3>
-
-    
-      <div id="method-c-new" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">new</span><span
-            class="method-args">(options)</span>
-          <span class="method-click-advice">click to toggle source</span>
-        </div>
-        
-
-        <div class="method-description">
-          
-          <dl class="rdoc-list label-list"><dt>global options
-<dd><dl class="rdoc-list note-list"><dt>–help
-<dd>
-<p>Show this message</p>
-</dd><dt>-p, –path=path
-<dd>
-<p>repository path (default: {{present_working_directory}})</p>
-</dd><dt>-s, –sha=sha
-<dd>
-<p>SHA1 (default: {{current_head}})</p>
-</dd><dt>–version
-<dd>
-<p>Show gem’s version</p>
-</dd></dl>
-</dd></dl>
-          
-
-          
-          <div class="method-source-code" id="new-source">
-            <pre><span class="ruby-comment"># File lib/git-it/commander.rb, line 15</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">options</span>)
-  <span class="ruby-ivar">@global_options</span> = <span class="ruby-identifier">options</span>
-  <span class="ruby-ivar">@repository</span>     = <span class="ruby-constant">Rugged</span><span class="ruby-operator">::</span><span class="ruby-constant">Repository</span>.<span class="ruby-identifier">new</span>( <span class="ruby-identifier">get_path</span>(<span class="ruby-identifier">options</span>[<span class="ruby-value">:path</span>]) )
-  <span class="ruby-ivar">@git_object</span>     = <span class="ruby-identifier">get_object</span>( <span class="ruby-identifier">options</span>[<span class="ruby-value">:sha</span>] )
-<span class="ruby-keyword">end</span></pre>
-          </div><!-- new-source -->
-          
-        </div>
-
-        
-
-        
-      </div><!-- new-method -->
-
-    
-    </section><!-- public-class-method-details -->
   
   </section><!-- 5Buntitled-5D -->
 
