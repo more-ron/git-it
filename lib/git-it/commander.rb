@@ -164,7 +164,7 @@ module GitIt
     end
 
     def closest_branch
-      closest_remote_branch || closest_local_branch
+      closest_local_branch || closest_remote_branch
     end
 
     def clean_branch_name_for( branch )
