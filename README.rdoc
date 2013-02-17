@@ -18,9 +18,17 @@ Might not need sudo depending on your setup. To install as /usr/bin/git-it thoug
 
 == Use
 
-Open current branch in the web. Use it as an easy way to issue pull request in github.
+Open branch
 
-    git it opened_in_the_web #=> open https://github.com/more-ron/git-it/tree/master
+    git it opened #=> https://github.com/more-ron/git-it/tree/gh-pages
+
+Compare branches
+
+    git it compared #=> https://github.com/more-ron/git-it/compare/master...gh-pages
+
+Issue a pull request
+
+    git it pulled #=> https://github.com/more-ron/git-it/pull/new/more-ron:master...gh-pages
 
 
 
@@ -40,9 +48,18 @@ You will need to know where git-it got installed. To do that execute the followi
 
 [Parameters]
 
-  get it opened in the web:
+  get it opened:
+    --path=$REPO --sha=$SHA opened
 
-    --path=$REPO --sha=$SHA opened_in_the_web
+  get it compared:
+    --path=$REPO --sha=$SHA compared
+  get it compared to release:
+    --path=$REPO --sha=$SHA compared --to=release
+
+  get it pulled:
+    --path=$REPO --sha=$SHA pulled
+  get it pulled to release:
+    --path=$REPO --sha=$SHA pulled --to=release
 
 
 

@@ -34,20 +34,35 @@ default_value false
 # = Commands =
 # ============
 
-desc 'Opens current branch in web browser.'
-
-command :opened_in_the_web do |c|
-
-  c.desc 'Site: auto | github'
-  c.default_value 'auto'
-  c.flag :site
-
-  c.action do |global_options,options,args|
-    GitIt::Commander.new(global_options).open_in_the_web(args, options)
+desc 'Opens current branch.'
+command :opened do |c|
+  c.action do |global_options, options, args|
+    GitIt::Commander.new( global_options ).open( args, options )
   end
 end
 
-class Object # :nodoc:
+desc 'Compares current branch to...'
+command :compared do |c|
+
+  c.desc 'Name of the branch to compare to'
+  c.default_value 'master'
+  c.flag :to
+
+  c.action do |global_options, options, args|
+    GitIt::Commander.new( global_options ).compare( args, options )
+  end
+end
+
+desc 'Issue pull request for current branch to...'
+command :pulled do |c|
+
+  c.desc 'Name of the branch to be pulled into'
+  c.default_value 'master'
+  c.flag :to
+
+  c.action do |global_options, options, args|
+    GitIt::Commander.new( global_options ).pull( args, options )
+  end
 end
 
 # ====================
@@ -73,6 +88,9 @@ on_error do |exception|
   # Error logic here
   # return false to skip default error handling
   true
+end
+
+class Object # :nodoc:
 end
 
 exit run(ARGV)

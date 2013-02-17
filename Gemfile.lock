@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    git-it (0.0.6)
+    git-it (0.0.8)
       gli (~> 2.5.4)
       launchy (~> 2.2.0)
       rugged (~> 0.17.0.b7)

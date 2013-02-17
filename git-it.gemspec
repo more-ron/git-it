@@ -17,13 +17,7 @@ spec = Gem::Specification.new do |s|
   # ====================
   # = Files to Include =
   # ====================
-  s.files = %w(
-    bin/git-it
-    lib/git-it/commander.rb
-    lib/git-it/global_helper.rb
-    lib/git-it/version.rb
-    lib/git-it.rb
-  )
+  s.files = Dir['lib/**/*.rb'] + Dir['bin/*']
 
   s.require_paths    = ['lib']
 
