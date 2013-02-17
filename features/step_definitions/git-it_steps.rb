@@ -6,28 +6,37 @@ end
 # Add more step definitions here
 
 Given /^a github repository$/ do
+  @git_project_type = "github-project"
   @git_project_name = "some-project"
   @git_user_name    = "some-user"
 
-  run_simple "git init #{@git_project_name}", false
+  if File.directory?("tmp/github-project")
+    run_simple "cp -r ../#{@git_project_type} #{@git_project_name}", false
+    cd(@git_project_name)
+  else
+    run_simple "git init #{@git_project_name}", false
+    cd(@git_project_name)
 
-  cd(@git_project_name)
+    %{
+      touch me
+      git add me
+      git commit -m me
 
-  %{
-    touch me
-    git add me
-    git commit -m me
+      git remote add origin "git@github.com:#{@git_user_name}/#{@git_project_name}.git"
 
-    git remote add origin "git@github.com:#{@git_user_name}/#{@git_project_name}.git"
+      git checkout -b your_branch
+      git branch --track origin/your_branch
 
-    git checkout -b your_branch
-    git branch --track origin/your_branch
+      touch yourself
+      git add yourself
+      git commit -m yourself
+    }.each_line do |command|
+      run_simple command, false
+    end
 
-    touch yourself
-    git add yourself
-    git commit -m yourself
-  }.each_line do |command|
-    run_simple command, false
+    cd("..")
+    run_simple "cp -a #{@git_project_name} ../#{@git_project_type}", false
+    cd(@git_project_name)
   end
 end
 

@@ -9,11 +9,11 @@ module GitIt
     def initialize(repository_url)
       @repository_url = repository_url
 
-      @repo = /^git@(?<site>.*):(?<user>.*)\/(?<proj>.*).git$/.match(@repository_url)
+      @repo = /^git@(.*):(.*)\/(.*).git$/.match(@repository_url)
 
-      @site = @repo[:site]
-      @user = @repo[:user]
-      @proj = @repo[:proj]
+      @site = @repo[1]
+      @user = @repo[2]
+      @proj = @repo[3]
     end
 
     # https://github.com/more-ron/git-it/tree/gh-pages
