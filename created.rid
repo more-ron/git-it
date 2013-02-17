@@ -1,7 +1,7 @@
-Sun, 17 Feb 2013 06:48:57 +0800
-README.rdoc	Sun, 17 Feb 2013 06:48:46 +0800
-lib/git-it.rb	Sat, 16 Feb 2013 22:27:06 +0800
-lib/git-it/commander.rb	Sat, 16 Feb 2013 20:49:25 +0800
-lib/git-it/global_helper.rb	Sat, 16 Feb 2013 20:51:01 +0800
+Sun, 17 Feb 2013 09:42:39 +0800
 lib/git-it/version.rb	Sat, 16 Feb 2013 18:39:49 +0800
+README.rdoc	Sun, 17 Feb 2013 09:42:22 +0800
+lib/git-it.rb	Sat, 16 Feb 2013 22:27:06 +0800
 bin/git-it	Sat, 16 Feb 2013 18:56:07 +0800
+lib/git-it/global_helper.rb	Sat, 16 Feb 2013 20:51:01 +0800
+lib/git-it/commander.rb	Sun, 17 Feb 2013 07:23:36 +0800

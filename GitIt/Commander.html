@@ -199,7 +199,7 @@
 
           
           <div class="method-source-code" id="new-source">
-            <pre><span class="ruby-comment"># File lib/git-it/commander.rb, line 18</span>
+            <pre><span class="ruby-comment"># File lib/git-it/commander.rb, line 17</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">options</span>)
   <span class="ruby-ivar">@global_options</span> = <span class="ruby-identifier">options</span>
   <span class="ruby-ivar">@repository</span>     = <span class="ruby-constant">Rugged</span><span class="ruby-operator">::</span><span class="ruby-constant">Repository</span>.<span class="ruby-identifier">new</span>( <span class="ruby-identifier">get_path</span>(<span class="ruby-identifier">options</span>[<span class="ruby-value">:path</span>]) )
@@ -261,7 +261,7 @@
 
           
           <div class="method-source-code" id="open_in_the_web-source">
-            <pre><span class="ruby-comment"># File lib/git-it/commander.rb, line 52</span>
+            <pre><span class="ruby-comment"># File lib/git-it/commander.rb, line 51</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">open_in_the_web</span>(<span class="ruby-identifier">args</span>, <span class="ruby-identifier">options</span>)
   <span class="ruby-identifier">remote_origin_url</span> = <span class="ruby-identifier">repository</span>.<span class="ruby-identifier">config</span>[<span class="ruby-string">&quot;remote.origin.url&quot;</span>]
   <span class="ruby-comment">#=&gt; git@github.com:more-ron/git-it.git</span>
