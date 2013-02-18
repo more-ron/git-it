@@ -1,3 +1,6 @@
+require 'rugged'
+require 'launchy'
+
 module GitIt
   # Grand central station for git it commands
   class Commander
