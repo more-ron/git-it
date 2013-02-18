@@ -63,6 +63,33 @@ command :pulled do |c|
   end
 end
 
+# ===========================
+# = Future verbs to support =
+# ===========================
+
+# git it dated
+#   - displays dates of branches stating with the most dated to the newest
+
+# git it branched
+#   - creates and checkouts a branch based on a given phrase
+
+# git it tagged
+#   - tags current head given a phrase
+
+# git it tested
+#   - runs new tests added or modified in the current head since master (cucumber features)
+
+# git it removed
+#   - removes current branch from remote repository
+
+# git it pruned
+#   - trims branches not found remotely
+
+# git it gemmed
+#   - updates version, packages and pushes to http://rubygems.org/ (gems made out of gli)
+
+
+
 # ====================
 # = Before and After =
 # ====================
