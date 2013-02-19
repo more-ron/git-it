@@ -11,7 +11,7 @@ require 'git-it/commander'
 # ================
 # = Links to web =
 # ================
-require 'git-it/link_generator'
+require 'git-it/url_generator'
 
 # ================================
 # = Not much of a help right not =

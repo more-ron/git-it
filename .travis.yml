@@ -2,7 +2,7 @@ notifications:
   email:
     on_success: always
 
-script: 'bundle exec rake test features'
+script: 'bundle exec rake spec features'
 
 rvm:
   - 1.8.7

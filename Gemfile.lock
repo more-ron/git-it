@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    git-it (0.0.8)
+    git-it (0.0.9)
       gli (~> 2.5.4)
       launchy (~> 2.2.0)
       rugged (~> 0.17.0.b7)
@@ -33,8 +33,14 @@ GEM
     rake (10.0.3)
     rdoc (3.12.1)
       json (~> 1.4)
+    rspec (2.12.0)
+      rspec-core (~> 2.12.0)
+      rspec-expectations (~> 2.12.0)
+      rspec-mocks (~> 2.12.0)
+    rspec-core (2.12.2)
     rspec-expectations (2.12.1)
       diff-lcs (~> 1.1.3)
+    rspec-mocks (2.12.2)
     rugged (0.17.0.b7)
 
 PLATFORMS
@@ -46,3 +52,4 @@ DEPENDENCIES
   gli
   rake
   rdoc
+  rspec

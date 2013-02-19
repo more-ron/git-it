@@ -37,7 +37,7 @@ module GitIt
       @git_object     = get_object( options[:sha] )
       @test_mode      = options[:test]
 
-      @link_generator = LinkGenerator.new( @repository.config["remote.origin.url"] )
+      @url_generator = UrlGenerator.new( @repository.config["remote.origin.url"] )
     end
 
 
@@ -60,7 +60,7 @@ module GitIt
 
       if _closest_branch
         branch_name = clean_branch_name_for( _closest_branch )
-        link        = @link_generator.branch_link( branch_name )
+        link        = @url_generator.branch_url( branch_name )
 
         launch link
       else
@@ -85,7 +85,7 @@ module GitIt
 
       if _closest_branch
         branch_name = clean_branch_name_for( _closest_branch )
-        link        = @link_generator.compare_branches_link( branch_name, options[:to] || "master" )
+        link        = @url_generator.compare_branches_url( branch_name, options[:to] || "master" )
 
         launch link
       else
@@ -110,7 +110,7 @@ module GitIt
 
       if _closest_branch
         branch_name = clean_branch_name_for( _closest_branch )
-        link        = @link_generator.pull_request_link( branch_name, options[:to] || "master" )
+        link        = @url_generator.pull_request_url( branch_name, options[:to] || "master" )
 
         launch link
       else
