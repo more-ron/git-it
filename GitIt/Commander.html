@@ -105,7 +105,7 @@
   
     <li><a href="../GitIt/GlobalHelper.html">GitIt::GlobalHelper</a>
   
-    <li><a href="../GitIt/LinkGenerator.html">GitIt::LinkGenerator</a>
+    <li><a href="../GitIt/UrlGenerator.html">GitIt::UrlGenerator</a>
   
     <li><a href="../Object.html">Object</a>
   
@@ -219,14 +219,14 @@
 
           
           <div class="method-source-code" id="new-source">
-            <pre><span class="ruby-comment"># File lib/git-it/commander.rb, line 31</span>
+            <pre><span class="ruby-comment"># File lib/git-it/commander.rb, line 34</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">options</span>)
   <span class="ruby-ivar">@global_options</span> = <span class="ruby-identifier">options</span>
   <span class="ruby-ivar">@repository</span>     = <span class="ruby-constant">Rugged</span><span class="ruby-operator">::</span><span class="ruby-constant">Repository</span>.<span class="ruby-identifier">new</span>( <span class="ruby-identifier">get_path</span>(<span class="ruby-identifier">options</span>[<span class="ruby-value">:path</span>]) )
   <span class="ruby-ivar">@git_object</span>     = <span class="ruby-identifier">get_object</span>( <span class="ruby-identifier">options</span>[<span class="ruby-value">:sha</span>] )
   <span class="ruby-ivar">@test_mode</span>      = <span class="ruby-identifier">options</span>[<span class="ruby-value">:test</span>]
 
-  <span class="ruby-ivar">@link_generator</span> = <span class="ruby-constant">LinkGenerator</span>.<span class="ruby-identifier">new</span>( <span class="ruby-ivar">@repository</span>.<span class="ruby-identifier">config</span>[<span class="ruby-string">&quot;remote.origin.url&quot;</span>] )
+  <span class="ruby-ivar">@url_generator</span> = <span class="ruby-constant">UrlGenerator</span>.<span class="ruby-identifier">new</span>( <span class="ruby-ivar">@repository</span>.<span class="ruby-identifier">config</span>[<span class="ruby-string">&quot;remote.origin.url&quot;</span>] )
 <span class="ruby-keyword">end</span></pre>
           </div><!-- new-source -->
           
@@ -272,13 +272,13 @@
 
           
           <div class="method-source-code" id="compare-source">
-            <pre><span class="ruby-comment"># File lib/git-it/commander.rb, line 80</span>
+            <pre><span class="ruby-comment"># File lib/git-it/commander.rb, line 83</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">compare</span>(<span class="ruby-identifier">args</span>, <span class="ruby-identifier">options</span>)
   <span class="ruby-identifier">_closest_branch</span> = <span class="ruby-identifier">closest_branch</span>
 
   <span class="ruby-keyword">if</span> <span class="ruby-identifier">_closest_branch</span>
     <span class="ruby-identifier">branch_name</span> = <span class="ruby-identifier">clean_branch_name_for</span>( <span class="ruby-identifier">_closest_branch</span> )
-    <span class="ruby-identifier">link</span>        = <span class="ruby-ivar">@link_generator</span>.<span class="ruby-identifier">compare_branches_link</span>( <span class="ruby-identifier">branch_name</span>, <span class="ruby-identifier">options</span>[<span class="ruby-value">:to</span>] <span class="ruby-operator">||</span> <span class="ruby-string">&quot;master&quot;</span> )
+    <span class="ruby-identifier">link</span>        = <span class="ruby-ivar">@url_generator</span>.<span class="ruby-identifier">compare_branches_url</span>( <span class="ruby-identifier">branch_name</span>, <span class="ruby-identifier">options</span>[<span class="ruby-value">:to</span>] <span class="ruby-operator">||</span> <span class="ruby-string">&quot;master&quot;</span> )
 
     <span class="ruby-identifier">launch</span> <span class="ruby-identifier">link</span>
   <span class="ruby-keyword">else</span>
@@ -319,13 +319,13 @@
 
           
           <div class="method-source-code" id="open-source">
-            <pre><span class="ruby-comment"># File lib/git-it/commander.rb, line 55</span>
+            <pre><span class="ruby-comment"># File lib/git-it/commander.rb, line 58</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">open</span>(<span class="ruby-identifier">args</span>, <span class="ruby-identifier">options</span>)
   <span class="ruby-identifier">_closest_branch</span> = <span class="ruby-identifier">closest_branch</span>
 
   <span class="ruby-keyword">if</span> <span class="ruby-identifier">_closest_branch</span>
     <span class="ruby-identifier">branch_name</span> = <span class="ruby-identifier">clean_branch_name_for</span>( <span class="ruby-identifier">_closest_branch</span> )
-    <span class="ruby-identifier">link</span>        = <span class="ruby-ivar">@link_generator</span>.<span class="ruby-identifier">branch_link</span>( <span class="ruby-identifier">branch_name</span> )
+    <span class="ruby-identifier">link</span>        = <span class="ruby-ivar">@url_generator</span>.<span class="ruby-identifier">branch_url</span>( <span class="ruby-identifier">branch_name</span> )
 
     <span class="ruby-identifier">launch</span> <span class="ruby-identifier">link</span>
   <span class="ruby-keyword">else</span>
@@ -371,13 +371,13 @@ master)</p>
 
           
           <div class="method-source-code" id="pull-source">
-            <pre><span class="ruby-comment"># File lib/git-it/commander.rb, line 105</span>
+            <pre><span class="ruby-comment"># File lib/git-it/commander.rb, line 108</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">pull</span>(<span class="ruby-identifier">args</span>, <span class="ruby-identifier">options</span>)
   <span class="ruby-identifier">_closest_branch</span> = <span class="ruby-identifier">closest_branch</span>
 
   <span class="ruby-keyword">if</span> <span class="ruby-identifier">_closest_branch</span>
     <span class="ruby-identifier">branch_name</span> = <span class="ruby-identifier">clean_branch_name_for</span>( <span class="ruby-identifier">_closest_branch</span> )
-    <span class="ruby-identifier">link</span>        = <span class="ruby-ivar">@link_generator</span>.<span class="ruby-identifier">pull_request_link</span>( <span class="ruby-identifier">branch_name</span>, <span class="ruby-identifier">options</span>[<span class="ruby-value">:to</span>] <span class="ruby-operator">||</span> <span class="ruby-string">&quot;master&quot;</span> )
+    <span class="ruby-identifier">link</span>        = <span class="ruby-ivar">@url_generator</span>.<span class="ruby-identifier">pull_request_url</span>( <span class="ruby-identifier">branch_name</span>, <span class="ruby-identifier">options</span>[<span class="ruby-value">:to</span>] <span class="ruby-operator">||</span> <span class="ruby-string">&quot;master&quot;</span> )
 
     <span class="ruby-identifier">launch</span> <span class="ruby-identifier">link</span>
   <span class="ruby-keyword">else</span>
