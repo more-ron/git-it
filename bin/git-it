@@ -63,6 +63,13 @@ command :pulled do |c|
   end
 end
 
+desc 'Tests current branch.'
+command :tested do |c|
+  c.action do |global_options, options, args|
+    GitIt::Commander.new( global_options ).test( args, options )
+  end
+end
+
 # ===========================
 # = Future verbs to support =
 # ===========================
@@ -75,9 +82,6 @@ end
 
 # git it tagged
 #   - tags current head given a phrase
-
-# git it tested
-#   - runs new tests added or modified in the current head since master (cucumber features)
 
 # git it removed
 #   - removes current branch from remote repository

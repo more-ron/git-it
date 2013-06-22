@@ -31,5 +31,10 @@ module GitIt
       "https://#{@site}/#{@user}/#{@proj}/pull/new/#{@user}:#{destination}...#{source}"
     end
 
+    # https://github.com/more-ron/git-it/tree/gh-pages
+    def test_url(branch_name)
+      "https://circleci.com/gh/#{@user}/#{@proj}/tree/#{branch_name}"
+    end
+
   end
 end

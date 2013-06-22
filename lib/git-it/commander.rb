@@ -118,7 +118,27 @@ module GitIt
       end
     end
 
+    # [get it opened]
+    #
+    #   Opens the current branch
+    #
+    # [sample usage]
+    #
+    #   Open the current branch:
+    #     git it opened
+    #
+    def test(args, options)
+      _closest_branch = closest_branch
 
+      if _closest_branch
+        branch_name = clean_branch_name_for( _closest_branch )
+        link        = @url_generator.test_url( branch_name )
+
+        launch link
+      else
+        fail "Could not find closest remote branch for sha: #{@git_object.oid.inspect}"
+      end
+    end
 
     # ============
     # = Privates =
